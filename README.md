@@ -7,5 +7,7 @@ When seperating your buttons, tables, etc into component like classes it helps t
 
 #How To
 git clone [this repo]
+
 npm install
+
 npm run dev
