@@ -1,0 +1,6 @@
+{
+  "name": "ECMAScript 6 - Internet of Things",
+  "tagline": "Example of ES6 classes running the site.",
+  "body": "# Object Oriented programming with ES6.\r\nThis proves you can build an application based on JavaScript. It emphasises the use of JavaScript over post rendering with html manipulation.\r\n\r\nThis is a good way to get started before heading into unidirectional designs with React-Redux.\r\n\r\nWhen seperating your buttons, tables, etc into component like classes it helps to create re-usable items that can be easier maintained.\r\n\r\n#How To\r\ngit clone [this repo]\r\n\r\nnpm install\r\n\r\nnpm run dev\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
