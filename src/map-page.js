@@ -13,8 +13,11 @@ export class MapPage extends Page {
         
         let centerOfMap = {lat: 40.783661, lng: -73.965883}; 
         //TODO: add drones by default
-        let map = new GoogleMap(centerOfMap, application.dataService.cars);
+        let map = new GoogleMap(centerOfMap, application.dataService.cars, 'carmap', 'Cars');
         map.appendToElement(this.element);
+
+        let droneMap = new GoogleMap(centerOfMap, application.dataService.drones, 'dronemap', 'Drones');
+        droneMap.appendToElement(this.element);
 
     }
     

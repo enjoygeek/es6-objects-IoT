@@ -2,17 +2,19 @@ import {BaseElement} from './base-element.js';
 
 export class GoogleMap extends BaseElement {
     
-    constructor(centerOfMap, data) {
+    constructor(centerOfMap, data, id, title) {
         super();
         this.centerOfMap = centerOfMap;
         this.data = data;
+        this.id = id;
+        this.title = title;
     }
     
     createElement() {
         super.createElement();
         //wait a cycle to allow for google maps to find ID of map, using Func to get context of This.
         setTimeout(() => {
-            var map = new window.google.maps.Map(document.getElementById('map'), {
+            var map = new window.google.maps.Map(document.getElementById(this.id), {
                 zoom: 13,
                 center: this.centerOfMap
             });
@@ -35,7 +37,9 @@ export class GoogleMap extends BaseElement {
     }
     
     getElementString() {
-        return `<div style="width:800px; height: 400px;" id="map"></div>`;
+        return `
+        <h4>${this.title}</h4>
+        <div style="width:800px; height: 400px;" id="${this.id}"></div>`;
     }
     
 }

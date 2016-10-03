@@ -19,12 +19,17 @@ export class DataTable extends BaseElement {
         for (let row of this.data) {
             trTags += `<tr>`;
             let tdTags = '';
-            for (let property of this.headers) {
+            for (let property of this.headers) {                
                 let field = row[property.toLowerCase()];
+                if (!field && property === "AirTimeHours"){
+                    console.log("falsey field")
+                    field = row["airTimeHours"];
+                }
                 trTags += `<td class="mdl-data-table__cell--non-numeric">
-                             ${field}
-                           </td>
-                          `;
+                            ${field}
+                        </td>
+                        `;
+                
             }
             trTags += '</tr>';
         }

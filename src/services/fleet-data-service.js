@@ -45,7 +45,15 @@ export class FleetDataService {
                     }
                     break;
                 case 'drone':
-                    this.drones.push(data);
+                    if (this.validateDroneData(data)){
+                        let drone = this.loadDrone(data);
+                        if (drone){
+                            this.drones.push(drone);
+                        }
+                    } else {
+                        let e = new DataError("Invalid drone Data", data )
+                        this.errors.push(e);
+                    }
                     break;
                 default:
                     let e = new DataError('Invalid vehicle type', data);
@@ -68,10 +76,16 @@ export class FleetDataService {
     }
 
     loadDrone(drone){
-        let d = new Drone(drone.license, drone.model, drone.latLong);
-        d.airTimeHours = drone.airTimeHours;
-        d.make = drone.make;
-        d.base = drone.base;
+        try {
+            let d = new Drone(drone.license, drone.model, drone.latLong);
+            d.airTimeHours = drone.airTimeHours;
+            d.make = drone.make;
+            d.base = drone.base;
+            return d;
+        } catch(e){
+            this.errors.push(new DataError('error loading drone', car));
+        }
+        return null;        
     }
 
     validateCarData(car){
@@ -88,6 +102,25 @@ export class FleetDataService {
             this.errors.push(new DataError('invalid mileage', car));
             hasErrors = true;
         }
+        return !hasErrors;
+    }
+
+    validateDroneData(drone){
+        //validate required fields
+        let requiredProps = "license model airTimeHours latLong base".split(' ');
+        let hasErrors = false;
+        //push errors into this class to produce the list of known issues
+        for (let field of requiredProps){
+            if(!drone[field]){
+                this.errors.push(new DataError(`invalid field ${field}`, drone))
+                hasErrors = true;
+            }   
+        }
+        if (Number.isNaN(Number.parseFloat(drone.airTimeHours))){
+            this.errors.push(new DataError('invalid airTimeHours', drone));
+            hasErrors = true;
+        }
+        //return boolean to create an easy to read communication        
         return !hasErrors;
     }
 }
